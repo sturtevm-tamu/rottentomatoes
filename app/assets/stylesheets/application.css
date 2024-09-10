@@ -58,3 +58,11 @@ tr:nth-child(odd) {
   margin-left: auto;
   margin-right: auto;
 }
+
+.highlighter1 {
+  background-color: #d2a2a2;
+}
+
+.highlighter2 {
+  background-color: #a2d2a2;
+}

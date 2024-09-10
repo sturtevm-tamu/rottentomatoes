@@ -28,6 +28,10 @@ class MoviesController < ApplicationController
 	  switch_sort params[:field]
 	end
     @movies = Movie.order("#{@@sorting_type} #{@@sorting_order}")
+	
+	@sorter1 = @@sorting_type == "title" ? (@@sorting_order == "ASC" ? "↑" : "↓") : ""
+	@sorter2 = @@sorting_type == "rating" ? (@@sorting_order == "ASC" ? "↑" : "↓") : ""
+	@sorter3 = @@sorting_type == "release_date" ? (@@sorting_order == "ASC" ? "↑" : "↓") : ""
   end
 
   # GET /movies/1 or /movies/1.json

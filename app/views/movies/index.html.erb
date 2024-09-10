@@ -7,9 +7,9 @@
 
 <table class="center_table">
 <thead>
-  <th><%= link_to "Title", movies_path(field: "title") %></th>
-  <th><%= link_to "Rating", movies_path(field: "rating") %></th>
-  <th><%= link_to "Release Date", movies_path(field: "release_date") %></th>
+  <th class="<%= class_names(highlighter1: @sorter1 == '↓', highlighter2: @sorter1 == '↑') %>"><%= link_to "Title", movies_path(field: "title") %> <%= @sorter1 %> </th>
+  <th class="<%= class_names(highlighter1: @sorter2 == '↓', highlighter2: @sorter2 == '↑') %>"><%= link_to "Rating", movies_path(field: "rating") %> <%= @sorter2 %> </th>
+  <th class="<%= class_names(highlighter1: @sorter3 == '↓', highlighter2: @sorter3 == '↑') %>"><%= link_to "Release Date", movies_path(field: "release_date") %> <%= @sorter3 %> </th>
   <th></th>
 </thead>
 <tbody>
