@@ -1,9 +1,33 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: %i[ show edit update destroy ]
+  
+  @@sorting_type = "title"
+  @@sorting_order = "ASC"
+  
+  def initialize
+    #@sorting_type = "title"
+    #@sorting_order = "ASC"
+  end
+  
+  def switch_sort new_sorter
+    if new_sorter == @@sorting_type then
+	  if @@sorting_order == "ASC" then
+	    @@sorting_order = "DESC"
+	  else
+	    @@sorting_order = "ASC"
+	  end
+	else
+	  @@sorting_type = new_sorter
+	  @@sorting_order = "ASC"
+	end
+  end
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    if params[:field] then
+	  switch_sort params[:field]
+	end
+    @movies = Movie.order("#{@@sorting_type} #{@@sorting_order}")
   end
 
   # GET /movies/1 or /movies/1.json

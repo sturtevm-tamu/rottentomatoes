@@ -1,14 +1,16 @@
 <p style="color: green"><%= notice %></p>
+<%= stylesheet_link_tag "application.css" %>
 
 <% content_for :title, "Movies" %>
 
 <h1>Movies</h1>
 
-<table>
+<table class="center_table">
 <thead>
-  <th>Title</th>
-  <th>Rating</th>
-  <th>Release Date</th>
+  <th><%= link_to "Title", movies_path(field: "title") %></th>
+  <th><%= link_to "Rating", movies_path(field: "rating") %></th>
+  <th><%= link_to "Release Date", movies_path(field: "release_date") %></th>
+  <th></th>
 </thead>
 <tbody>
   <% @movies.each do |movie| %>
@@ -29,5 +31,7 @@
   <% end %>
 </tbody>
 </table>
+
+<br>
 
 <%= link_to "New movie", new_movie_path %>
