@@ -1,37 +1,45 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: %i[ show edit update destroy ]
   
-  @@sorting_type = "title"
-  @@sorting_order = "ASC"
-  
   def initialize
-    #@sorting_type = "title"
-    #@sorting_order = "ASC"
+  end
+  
+  def initsession
+    if session[:sorting_type] == nil then
+	  session[:sorting_type] = "title"
+	end
+	if session[:sorting_order] == nil then
+	  session[:sorting_order] = "ASC"
+	end
   end
   
   def switch_sort new_sorter
-    if new_sorter == @@sorting_type then
-	  if @@sorting_order == "ASC" then
-	    @@sorting_order = "DESC"
+	initsession
+  
+    if new_sorter == session[:sorting_type] then
+	  if session[:sorting_order] == "ASC" then
+	    session[:sorting_order] = "DESC"
 	  else
-	    @@sorting_order = "ASC"
+	    session[:sorting_order] = "ASC"
 	  end
 	else
-	  @@sorting_type = new_sorter
-	  @@sorting_order = "ASC"
+	  session[:sorting_type] = new_sorter
+	  session[:sorting_order] = "ASC"
 	end
   end
 
   # GET /movies or /movies.json
   def index
+    initsession
+  
     if params[:field] then
 	  switch_sort params[:field]
 	end
-    @movies = Movie.order("#{@@sorting_type} #{@@sorting_order}")
+    @movies = Movie.order("#{session[:sorting_type]} #{session[:sorting_order]}")
 	
-	@sorter1 = @@sorting_type == "title" ? (@@sorting_order == "ASC" ? "↑" : "↓") : ""
-	@sorter2 = @@sorting_type == "rating" ? (@@sorting_order == "ASC" ? "↑" : "↓") : ""
-	@sorter3 = @@sorting_type == "release_date" ? (@@sorting_order == "ASC" ? "↑" : "↓") : ""
+	@sorter1 = session[:sorting_type] == "title" ? (session[:sorting_order] == "ASC" ? "↑" : "↓") : ""
+	@sorter2 = session[:sorting_type] == "rating" ? (session[:sorting_order] == "ASC" ? "↑" : "↓") : ""
+	@sorter3 = session[:sorting_type] == "release_date" ? (session[:sorting_order] == "ASC" ? "↑" : "↓") : ""
   end
 
   # GET /movies/1 or /movies/1.json
